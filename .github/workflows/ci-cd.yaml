@@ -20,14 +20,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # -------------------------
-      # 1. Set up gcloud & kubectl
-      # -------------------------
+      # Authenticate to Google Cloud (required before using gcloud)
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      # Set up Cloud SDK (gcloud & kubectl)
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
 
       - name: Configure kubectl
@@ -37,7 +40,7 @@ jobs:
             --project "$GCP_PROJECT_ID"
 
       # -------------------------
-      # 2. Log in to Docker Hub
+      # Log in to Docker Hub
       # -------------------------
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -46,7 +49,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # -------------------------
-      # 3. Build & push backend image
+      # Build & push backend image
       # -------------------------
       - name: Build backend image
         uses: docker/build-push-action@v6
@@ -59,7 +62,7 @@ jobs:
             ${{ env.DOCKERHUB_REPO_BACKEND }}:${{ github.sha }}
 
       # -------------------------
-      # 4. Build & push frontend image
+      # Build & push frontend image
       # -------------------------
       - name: Build frontend image
         uses: docker/build-push-action@v6
@@ -72,7 +75,7 @@ jobs:
             ${{ env.DOCKERHUB_REPO_FRONTEND }}:${{ github.sha }}
 
       # -------------------------
-      # 5. Deploy to GKE
+      # Deploy to GKE
       # -------------------------
       - name: Deploy manifests
         run: |
