@@ -155,7 +155,7 @@ function App() {
             }}
           />
           <p>
-            Served hot, straight from oven running over GKE!
+            Served 🔥, straight from Google Kubernetes Engine!
           </p>
         </header>
 
@@ -192,12 +192,21 @@ function App() {
         </section>
 
         {/* NEW BUTTON: View Server Load - Placed at the bottom of the menu panel */}
-        <button 
-          onClick={handleViewServerLoad}
+        <button
+        // Commenting out onclick because, our initial plan of adding Grafana Visuals and dashboard iframe was pulled back. Now this is just a Versionindicator button.
+         // onClick={handleViewServerLoad}
           className="btn-primary"
           // Inline style to ensure full width and proper vertical spacing at the bottom
           style={{ width: '100%', marginTop: '1.5rem', boxShadow: 'none' }} 
         >
+       
+{/* This button text is the indicator of Versions of the website for our project. Initially in V1 of the website we kept the text
+
+        //View server load
+        
+But now we are changing this to "V2 Canary Release" in V2 of the website)
+
+*/} 
           View server load
         </button>
       </div>
