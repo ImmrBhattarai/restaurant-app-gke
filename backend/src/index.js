@@ -21,6 +21,13 @@ const MENU_ITEMS = [
   { id: 8, name: "Tomato Soup", price: 5.5 },
   { id: 9, name: "French Fries", price: 3.5 },
   { id: 10, name: "Chocolate Cake", price: 4.0 },
+
+  // New items for v2
+  { id: 11, name: "Garlic Bread", price: 3.0 },
+  { id: 12, name: "Grilled Salmon", price: 14.5 },
+  { id: 13, name: "Tiramisu", price: 5.5 },
+  { id: 14, name: "Spicy Ramen", price: 11.0 },
+  { id: 15, name: "Ice Cream Sundae", price: 4.5 },
 ];
 
 const app = express();
@@ -41,6 +48,12 @@ app.get("/health", (req, res) => {
 app.get("/api/menu", (req, res) => {
   res.json(MENU_ITEMS);
 });
+
+// Canary Release for V2, useful to confirm canary behavior via curl
+app.get("/api/version", (req, res) => {
+  res.json({ version: "backend-v2" });
+});
+
 
 // Create order (now using DB)
 app.post("/api/orders", async (req, res) => {
