@@ -1,0 +1,34 @@
+admin:
+  existingSecret: grafana-admin-credentials
+  userKey: admin-user
+  passwordKey: admin-password
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: "50m"
+    memory: "64Mi"
+  limits:
+    cpu: "150m"
+    memory: "128Mi"
+
+persistence:
+  enabled: false
+
+ingress:
+  enabled: true
+  ingressClassName: gce
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+#  hosts:
+#    - grafana.demo.local
+  paths:
+    - path: /
+      pathType: Prefix
+
+grafana.ini:
+  auth.anonymous:
+    enabled: false

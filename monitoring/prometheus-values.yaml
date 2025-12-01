@@ -1,0 +1,30 @@
+# monitoring/prometheus-values.yaml
+
+alertmanager:
+  enabled: false  # we don't need alertmanager for this demo
+
+pushgateway:
+  enabled: false  # not needed right now
+
+# server configuration
+server:
+  resources:
+    requests:
+      cpu: "50m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+
+# Keep retention very short – this is just a demo cluster.
+serverRetention: "3d"
+
+# Enable some basic components for K8s metrics
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+# If your cluster is small, this is enough.
+# Default scrape configs from the chart already include kubernetes pods/nodes.
