@@ -126,4 +126,5 @@ jobs:
 
           # Optionally, wait for rollout stabilization
           kubectl rollout status deployment/backend -n restaurant-app --timeout=120s
-          kubectl rollout status deployment/frontend -n restaurant-app --timeout=120s
+          kubectl rollout status deployment/frontend-v1 -n restaurant-app --timeout=120s
+          kubectl rollout status deployment/frontend-v2 -n restaurant-app --timeout=120s
