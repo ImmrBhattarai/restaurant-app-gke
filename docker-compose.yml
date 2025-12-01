@@ -1,0 +1,82 @@
+version: "3.9"
+
+x-default-labels: &default-labels
+  com.example.project: "restaurant"
+  com.example.stack: "restaurant-stack"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: restaurant-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-restaurant_user}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-restaurant_password}"
+      POSTGRES_DB: "${POSTGRES_DB:-restaurant_db}"
+    ports:
+      - "5432:5432"                           # only for local dev; remove or restrict in prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-restaurant_user} -d ${POSTGRES_DB:-restaurant_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels: *default-labels
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    image: restaurant-backend:latest
+    container_name: restaurant-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: "${DB_HOST:-db}"
+      DB_PORT: "${DB_PORT:-5432}"
+      DB_USER: "${DB_USER:-restaurant_user}"
+      DB_PASSWORD: "${DB_PASSWORD:-restaurant_password}"
+      DB_NAME: "${DB_NAME:-restaurant_db}"
+      PORT: "${BACKEND_PORT:-4000}"
+      NODE_ENV: production
+    ports:
+      - "${BACKEND_HOST_PORT:-4000}:4000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4000/health || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    labels: *default-labels
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+        # Provide API URL at build-time if frontend bundles it in
+        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://backend:4000}
+    image: restaurant-frontend:latest
+    container_name: restaurant-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_HOST_PORT:-3000}:80"     # maps host 3000 -> container 80 (nginx/caddy)
+    environment: {}                           # keep explicit empty mapping if not used
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- --timeout=2 http://localhost | head -n 1 | grep -i '<!doctype\\|<html' || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    labels: *default-labels
+
+volumes:
+  postgres_data:
+    driver: local
+
