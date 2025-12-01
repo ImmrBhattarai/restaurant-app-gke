@@ -121,10 +121,10 @@ jobs:
           kubectl apply -f k8s/backend-deployment.yaml
           kubectl apply -f k8s/frontend-service.yaml
           kubectl apply -f k8s/frontend-v1-deployment.yaml
-          kubectl apply -f k8s/frontend-v2-deployment.yaml
+          kubectl apply -f k8s/frontend-v3-deployment.yaml
           kubectl apply -f k8s/ingress.yaml
 
           # Optionally, wait for rollout stabilization
           kubectl rollout status deployment/backend -n restaurant-app --timeout=120s
           kubectl rollout status deployment/frontend-v1 -n restaurant-app --timeout=120s
-          kubectl rollout status deployment/frontend-v2 -n restaurant-app --timeout=120s
+          kubectl rollout status deployment/frontend-v3 -n restaurant-app --timeout=120s

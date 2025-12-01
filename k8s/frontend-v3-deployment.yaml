@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-v2
+  name: frontend-v3
   namespace: restaurant-app
   labels:
     app: frontend
-    version: v2
+    version: v3
 spec:
-  replicas: 1  # Canary: small fraction of traffic
+  replicas: 1  # Canary: 33% of controlled traffic to new version, small traffic test
   selector:
     matchLabels:
       app: frontend
-      version: v2
+      version: v3
   template:
     metadata:
       labels:
         app: frontend
-        version: v2
+        version: v3
     spec:
       containers:
         - name: frontend
-          image: docker.io/immrbhattarai/restaurant-frontend:latest
+          image: docker.io/immrbhattarai/restaurant-frontend:v3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

@@ -1,30 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-latest
   namespace: restaurant-app
   labels:
     app: backend
+    version: latest
 spec:
-  replicas: 1
+  replicas: 1 # No canary for backend
   selector:
     matchLabels:
       app: backend
-      version: v1
+      version: latest
   template:
     metadata:
       labels:
         app: backend
-        version: v1
+        version: latest
     spec:
       imagePullSecrets:
-        - name: docker-hub-creds    
+        - name: docker-hub-creds
       containers:
         - name: backend
-          # TODO: Replace with your actual image later, e.g.:
-          # image: gcr.io/YOUR_PROJECT_ID/restaurant-backend:latest
-          image: docker.io/immrbhattarai/restaurant-backend:v1
-          imagePullPolicy: IfNotPresent
+          image: docker.io/immrbhattarai/restaurant-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 4000
               name: http
@@ -69,19 +68,3 @@ spec:
               port: http
             initialDelaySeconds: 15
             periodSeconds: 20
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  namespace: restaurant-app
-  labels:
-    app: backend
-spec:
-  selector:
-    app: backend
-  type: ClusterIP
-  ports:
-    - name: http
-      port: 4000
-      targetPort: 4000
