@@ -207,7 +207,7 @@ function App() {
 But now we are changing this to "V2 Canary Release" in V2 of the website)
 
 */} 
-          View server load
+          V2 Canary Release
         </button>
       </div>
 
