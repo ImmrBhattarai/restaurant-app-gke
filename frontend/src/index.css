@@ -1,0 +1,41 @@
+/* * --- Global CSS Reset for Clean Slate ---
+ * Keeping only essential global settings for typography and body layout.
+ */
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Basic color/scheme setup */
+  color-scheme: light; 
+  color: #333333; 
+  background-color: #f0f0f0; 
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  /* App.css will now control the background color for the main content */
+}
+
+/* Removing base button styles as App.css handles .btn-primary */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Clear all media queries or dark scheme preferences */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Keeping the light scheme consistent to avoid unexpected white-on-white issues */
+    color: #333333;
+    background-color: #f0f0f0;
+  }
+}

@@ -1,0 +1,302 @@
+/* * --- CSS Variables (Mapping from STYLES object) ---
+ * Complementary Color Redesign based on your logo
+ */
+:root {
+    /* Main Brand Colors (from logo, with complementary focus) */
+    --color-primary: #5A2A80; /* Deep Royal Purple (Complement to bright yellow/orange) */
+    --color-accent: #FF9F1C; /* Vibrant Orange (from your logo - makes it pop!) */
+
+    /* Backgrounds - Lighter complements for readability */
+    --color-background-light: #F0F7F4; /* Very light Mint/Teal (soft complement to magenta/pink) */
+    --color-background-dark: #C6DDE7; /* Muted Sky Blue (calming complement to orange) */
+
+    /* Text Color */
+    --color-text: #3D3B3D; /* Dark charcoal grey for good contrast */
+    --color-white: #ffffff;
+
+    /* Feedback Colors (adjusting to fit new palette, still distinct) */
+    --color-success-bg: #D9F1DF; /* Lighter, muted green */
+    --color-success-text: #2F7C47; /* Deeper green */
+    --color-error-bg: #FDE0E4; /* Lighter, muted pink-red */
+    --color-error-text: #A83A49; /* Deeper red */
+
+    /* Mobile Breakpoint */
+    --mobile-breakpoint: 768px;
+}
+
+/* * --- App Container and Layout ---
+ */
+.app-container {
+    display: flex;
+    /* Default: Desktop/Row Layout */
+    flex-direction: row; 
+    /* The height determines the vertical space of the entire application */
+    height: 100vh; 
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-background-light); 
+    color: var(--color-text); 
+}
+
+/* Mobile Layout: Switches to column view on small screens */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+}
+
+
+/* * --- Panel Styles ---
+ */
+
+/* LEFT PANEL: MENU */
+.menu-panel {
+    flex: 40%;
+    /* --- MODIFIED: Reduced padding for compactness --- */
+    padding: 1.5rem; 
+    /* ------------------------------------------------- */
+    background: linear-gradient(135deg, var(--color-primary), #805BA8); 
+    background-color: var(--color-primary); 
+    color: var(--color-white);
+    overflow-y: auto;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); 
+}
+
+/* LEFT PANEL: Menu Header */
+.menu-panel header {
+    /* --- MODIFIED: Reduced margin-bottom --- */
+    margin-bottom: 1rem; 
+    /* --------------------------------------- */
+    text-align: center;
+}
+
+/* LEFT PANEL: Titles/Text */
+.menu-panel h1 {
+    font-size: 2rem; 
+    color: var(--color-white); 
+    margin: 0 0 0.5rem 0;
+    font-weight: 800;
+    border-bottom: 3px solid var(--color-accent); 
+}
+
+.menu-panel p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-weight: 600;
+    /* Keeping text compact */
+    font-size: 0.9rem;
+}
+
+/* LEFT PANEL: Menu Title */
+.menu-panel .section-title {
+    color: var(--color-accent); 
+    border-bottom-color: var(--color-accent);
+    /* --- MODIFIED: Reduced margin-bottom --- */
+    margin-bottom: 0.8rem; 
+    /* --------------------------------------- */
+}
+
+/* LEFT PANEL: Loading/Empty Message */
+.menu-panel .feedback-message {
+    color: var(--color-background-light);
+}
+
+/* RIGHT PANEL: ORDER FORM */
+.order-panel {
+    flex: 60%;
+    padding: 2.5rem;
+    overflow-y: auto;
+    background-color: var(--color-background-light); 
+}
+
+.order-panel form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Mobile Overrides for Panels */
+@media (max-width: 768px) {
+    .menu-panel, .order-panel {
+        flex: none; 
+        padding: 1.5rem;
+    }
+    .menu-panel {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    }
+    .order-panel form {
+        max-width: 100%;
+        margin: 0;
+    }
+}
+
+
+/* * --- Common Component Styles ---
+ */
+
+/* Header Titles (Main Title in Menu Panel) */
+.header-title {
+    font-size: 2.5rem;
+    color: var(--color-primary); 
+    margin: 0 0 0.5rem 0;
+    font-weight: 800;
+}
+
+/* Section Titles (Used in Order Panel) */
+.section-title {
+    color: var(--color-accent); 
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--color-accent); 
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* Logo Image */
+.app-logo {
+    width: 100%;
+    max-width: 100px; 
+    height: auto;
+    border-radius: 0; 
+    border: none; 
+    /* --- MODIFIED: Reduced margin-bottom --- */
+    margin-bottom: 0.5rem;
+    /* --------------------------------------- */
+}
+
+
+/* * --- Form & Inputs ---
+ */
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: var(--color-primary); 
+    font-size: 0.9rem;
+}
+
+.input-base {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-primary); 
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: inherit; 
+}
+
+textarea.input-base {
+    resize: vertical;
+}
+
+/* Quantity input size adjustment */
+.input-quantity {
+    width: 100px;
+    text-align: center;
+}
+
+/* * --- Buttons ---
+ */
+.btn-primary {
+    background-color: var(--color-accent); 
+    color: var(--color-white);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(255, 159, 28, 0.3);
+    min-width: 150px;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #E68A00; 
+}
+
+.btn-primary:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .btn-primary {
+        width: 100%;
+    }
+}
+
+
+/* * --- Table Styles (Menu) ---
+ */
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: var(--color-white); 
+}
+
+.menu-table th {
+    background-color: transparent;
+    border-bottom: 2px solid var(--color-accent); 
+    color: var(--color-white);
+    /* --- MODIFIED: Reduced vertical padding for compactness --- */
+    padding: 6px 10px; 
+    /* ---------------------------------------------------------- */
+    text-align: left;
+    font-weight: 600;
+}
+
+.menu-table th.text-right {
+    text-align: right;
+}
+
+.menu-table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-table td {
+    /* --- MODIFIED: Heavily reduced vertical padding for compactness --- */
+    padding: 4px 10px; 
+    font-size: 0.9rem; /* Slightly smaller font for a compact look */
+    /* ------------------------------------------------------------------ */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.menu-table td.text-right {
+    text-align: right;
+    font-weight: bold;
+    color: var(--color-accent); 
+}
+
+
+/* * --- Feedback Messages ---
+ */
+.message-box {
+    margin-top: 1.5rem;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid transparent; 
+}
+
+.message-box.success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
+    border-color: var(--color-success-bg); 
+}
+
+.message-box.error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+    border-color: var(--color-error-bg); 
+}
