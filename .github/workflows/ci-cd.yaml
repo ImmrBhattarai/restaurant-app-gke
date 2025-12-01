@@ -119,7 +119,9 @@ jobs:
           kubectl apply -f k8s/postgres-service.yaml
 
           kubectl apply -f k8s/backend-deployment.yaml
-          kubectl apply -f k8s/frontend-deployment.yaml
+          kubectl apply -f k8s/frontend-service.yaml
+          kubectl apply -f k8s/frontend-v1-deployment.yaml
+          kubectl apply -f k8s/frontend-v2-deployment.yaml
           kubectl apply -f k8s/ingress.yaml
 
           # Optionally, wait for rollout stabilization

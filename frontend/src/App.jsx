@@ -54,7 +54,7 @@ function App() {
         }
       } catch (error) {
         console.error("Error fetching menu:", error);
-        setMessage("Error loading menu. Please ensure the backend is running at http://localhost:4000.");
+        setMessage("Error loading menu. Looks like we encountered a problem running the backend");
       } finally {
         setLoadingMenu(false);
       }
