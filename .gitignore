@@ -1,0 +1,42 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+#KubeSealed Secrets
+k8s/secret-db-template.yaml
+k8s/secret-db-plain.yaml
+
+#Terraform Variables
+terraform.tfvars
+monitoring/grafana-admin-secret-plain.yaml
+
+#Grafana Secrets Plain (for login reference)
+monitoring/plain-grafana-secrets.txt
+
+#Installed package (zip)
+kubeseal
+
+#GitHUb Action Secret Upload script for CI/CD implementation
+script/github-secrets.txt
