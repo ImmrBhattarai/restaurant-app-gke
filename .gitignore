@@ -40,3 +40,6 @@ kubeseal
 
 #GitHUb Action Secret Upload script for CI/CD implementation
 script/github-secrets.txt
+
+#Single straight release removed in favor of canary frontend release
+k8s/frontend-deployment.yaml

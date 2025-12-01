@@ -23,7 +23,7 @@ spec:
         - name: backend
           # TODO: Replace with your actual image later, e.g.:
           # image: gcr.io/YOUR_PROJECT_ID/restaurant-backend:latest
-          image: docker.io/immrbhattarai/restaurant-backend:latest
+          image: docker.io/immrbhattarai/restaurant-backend:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4000
